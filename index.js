@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const port = 5000;
 
+const mobileProductsData = require("./product/mobiles");
+const mobileProducts = mobileProductsData.default || mobileProductsData;
+
 // ----------------------------
 require("dotenv").config(); // Load .env variables first
 const helmet = require("helmet"); // Secures HTTP headers
@@ -12,6 +15,13 @@ const rateLimit = require("express-rate-limit"); // Prevents brute-force attacks
 // --- Core Middleware ---
 app.use(express.json()); // Parse JSON bodies
 app.use(helmet()); // Set secure headers
+const sendSuccess = (res, data, message = "Success") => {
+  return res.status(200).json({
+    success: true,
+    message: message,
+    data: data,
+  });
+};
 // ----------------------------==========================================================
 // --- CORS Configuration ---
 // Only allow your Next.js frontend to make requests
@@ -72,6 +82,40 @@ app.post("/addData", (req, res) => {
     msg: "HI to head route",
   });
   // res.send("Hi");
+});
+
+// ======================= Mobile ======================================
+
+app.get("/allMobiles", (req, res) => {
+  sendSuccess(res, mobileProducts, "Mobiles loaded successfully");
+});
+
+// =============== add Mobile =========================================
+app.post("/addMobile", (req, res) => {
+  const { name, model, price, available, brand, color } = req.body;
+  const newMobile = {
+    name,
+    model,
+    price,
+    brand,
+    available,
+    color,
+    id: mobileProducts.length + 1,
+  };
+  console.log(newMobile);
+  const compareLength = (a, b) => a < b;
+  const oldLength = mobileProducts.length;
+  if (name) mobileProducts.push(newMobile);
+
+  const newLength = mobileProducts.length;
+
+  res.json({
+    res: newMobile,
+    data: mobileProducts,
+    msg: compareLength(oldLength, newLength)
+      ? "Added successfully"
+      : "Error !! Please check",
+  });
 });
 
 app.listen(port, () => {
