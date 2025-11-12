@@ -25,10 +25,10 @@ const sendSuccess = (res, data, message = "Success") => {
 // ----------------------------==========================================================
 // --- CORS Configuration ---
 // Only allow your Next.js frontend to make requests
-const corsOptions = {
-  origin: "http://localhost:3001", // Your Next.js app URL
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: "http://localhost:3001", // Your Next.js app URL
+// };
+// app.use(cors(corsOptions));
 
 // --- Rate Limiting ---
 // Apply to auth routes to prevent brute-force attacks
