@@ -86,7 +86,7 @@ app.post("/addData", (req, res) => {
 
 // ======================= Mobile ======================================
 
-app.get("/allMobiles", (req, res) => {
+app.post("/allMobiles", (req, res) => {
   // sendSuccess(res, mobileProducts, "Mobiles loaded successfully");
   res.json({
     data: mobileProducts,
