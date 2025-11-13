@@ -14,7 +14,7 @@ const rateLimit = require("express-rate-limit"); // Prevents brute-force attacks
 // --------------------------------------------------------------------------------
 // --- Core Middleware ---
 app.use(express.json()); // Parse JSON bodies
-app.use(helmet()); // Set secure headers
+// app.use(helmet()); // Set secure headers
 const sendSuccess = (res, data, message = "Success") => {
   return res.status(200).json({
     success: true,
