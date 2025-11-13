@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const port = 5000;
 
@@ -13,6 +14,8 @@ const rateLimit = require("express-rate-limit"); // Prevents brute-force attacks
 
 // --------------------------------------------------------------------------------
 // --- Core Middleware ---
+// Enable CORS for all routes
+app.use(cors());
 app.use(express.json()); // Parse JSON bodies
 // app.use(helmet()); // Set secure headers
 const sendSuccess = (res, data, message = "Success") => {
