@@ -9,7 +9,7 @@ const mobileProducts = mobileProductsData.default || mobileProductsData;
 // ----------------------------
 require("dotenv").config(); // Load .env variables first
 const helmet = require("helmet"); // Secures HTTP headers
-const cors = require("cors"); // Manages Cross-Origin Resource Sharing
+// const cors = require("cors"); // Manages Cross-Origin Resource Sharing
 const rateLimit = require("express-rate-limit"); // Prevents brute-force attacks
 
 // --------------------------------------------------------------------------------
