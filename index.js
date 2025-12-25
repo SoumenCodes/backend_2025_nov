@@ -11,6 +11,7 @@ require("dotenv").config(); // Load .env variables first
 const helmet = require("helmet"); // Secures HTTP headers
 // const cors = require("cors"); // Manages Cross-Origin Resource Sharing
 const rateLimit = require("express-rate-limit"); // Prevents brute-force attacks
+const { userData } = require("./user/userData");
 
 // --------------------------------------------------------------------------------
 // --- Core Middleware ---
@@ -124,6 +125,51 @@ app.post("/addMobile", (req, res) => {
       : "Error !! Please check",
   });
 });
+
+app.post('/signUp', (req, res) => {
+  const { name, email, password } = req.body;
+  const user = { name, email, password };
+  if (name && email && password) {
+    userData.map((item) => {
+      if (item.email === email) {
+        return res.json({
+          msg: "User already exists",
+          status: false,
+        });
+      }
+    })
+    userData.push(user);
+    return res.json({
+      msg: "User created successfully",
+      status: true,
+    });
+  }
+  return res.json({
+    msg: "Please provide all the details",
+    status: false,
+  });
+})
+
+app.get('/login', (req, res) => {
+  const { email, password } = req.body;
+  const user = userData.find((item) => item.email === email);
+  if (user) {
+    if (user.password === password) {
+      return res.json({
+        msg: "Login successful",
+        status: true,
+      });
+    }
+    return res.json({
+      msg: "Incorrect password",
+      status: false,
+    });
+  }
+  return res.json({
+    msg: "User not found",
+    status: false,
+  });
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

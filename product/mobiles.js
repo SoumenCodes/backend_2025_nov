@@ -118,4 +118,13 @@ const mobileProducts = [
     color: ["Nebula Green", "Lunar Blue", "Solar Gold", "Eclipse Black"],
   },
 ];
+
+// {
+//   name: "Google Pixel 8 Pro",
+//   model: "G8PRO",
+//   price: 899,
+//   available: "sold",
+//   brand: "Google",
+// }
+
 export default mobileProducts;
