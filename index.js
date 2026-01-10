@@ -126,7 +126,8 @@ app.post("/addMobile", (req, res) => {
   });
 });
 
-app.post('/signUp', (req, res) => {
+// ============================ Auth =================================
+app.post("/signUp", (req, res) => {
   const { name, email, password } = req.body;
   const user = { name, email, password };
   if (name && email && password) {
@@ -137,7 +138,7 @@ app.post('/signUp', (req, res) => {
           status: false,
         });
       }
-    })
+    });
     userData.push(user);
     return res.json({
       msg: "User created successfully",
@@ -148,9 +149,9 @@ app.post('/signUp', (req, res) => {
     msg: "Please provide all the details",
     status: false,
   });
-})
+});
 
-app.get('/login', (req, res) => {
+app.get("/login", (req, res) => {
   const { email, password } = req.body;
   const user = userData.find((item) => item.email === email);
   if (user) {
@@ -169,7 +170,7 @@ app.get('/login', (req, res) => {
     msg: "User not found",
     status: false,
   });
-})
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
